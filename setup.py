@@ -16,7 +16,7 @@ setup(name='upcnet.cas',
       keywords='',
       author='UPCnet Plone Team',
       author_email='plone.team@upcnet.es',
-      url='http://svn.plone.org/svn/plone/plone.example',
+      url='https://devel.upcnet.es/svn/genwebupc/trunk/upcnet.cas',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['upcnet'],
@@ -24,6 +24,7 @@ setup(name='upcnet.cas',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'Products.CAS4PAS',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
@@ -32,6 +33,4 @@ setup(name='upcnet.cas',
       [z3c.autoinclude.plugin]
       target = plone
       """,
-      setup_requires=["PasteScript"],
-      paster_plugins = ["ZopeSkel"],
       )
