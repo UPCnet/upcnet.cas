@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="upcnet.cas.various"
+               version="20091019-01"
+               handler="upcnet.cas.setuphandlers.setupVarious"
+               title="UPCnet CAS UI: miscellaneous import steps">
+    <dependency step="skins" />
+    Various import steps that are not handled by GS import/export
+    handlers.
+  </import-step>
+</import-steps>

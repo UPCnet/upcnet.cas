@@ -1,7 +1,40 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="upcnet.cas">
 
+  <genericsetup:registerProfile
+      name="default"
+      title="UPCnet CAS UI"
+      directory="profiles/default"
+      description="Extension profile for upcnet.cas"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+      
+    <browser:page
+        for="*"
+        name="cas_login_url"
+        class=".browser.LoginUrl"
+        permission="zope2.Public"
+        />
 
+    <browser:page
+        for="*"
+        name="cas_logout"
+        class=".browser.Logout"
+        permission="zope2.Public"
+        />
+<!-- 
+    <plone:portlet
+        name="collective.castle.Portlet"
+        interface=".portlet.IPortlet"
+        assignment=".portlet.Assignment"
+        view_permission="zope2.View"
+        edit_permission="cmf.ManagePortal"
+        renderer=".portlet.Renderer"
+        addview=".portlet.AddForm"
+        />
+-->   
 </configure>
