@@ -24,10 +24,12 @@ def login_query_string(context):
     service_URL =('%s/logged_in%s' % (portal, querystring))
     return '?service=%s' % quote(service_URL, '')
 
-def login_URL(context):
+def login_URL(context, request):
     base = login_URL_base(context)
     if base is None:
-        raise NotFound
+        #loginform = getToolByName(context, 'portal_url').getPortalObject().absolute_url() + '/login_form'
+        loginform = 'login_form'
+        return loginform
     return '%s%s' % (base, login_query_string(context))
 
 def logout(context, request):

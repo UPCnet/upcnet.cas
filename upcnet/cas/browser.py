@@ -8,7 +8,7 @@ class LoginUrl(BrowserPage):
         self.request = request
 
     def __call__(self):
-        return util.login_URL(self.context)
+        return util.login_URL(self.context, self.request)
 
 class Logout(BrowserPage):
 
