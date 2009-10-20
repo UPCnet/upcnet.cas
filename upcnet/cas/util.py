@@ -32,9 +32,41 @@ def login_URL(context, request):
         return loginform
     return '%s%s' % (base, login_query_string(context))
 
+
+def loginForm_query_string(context,request):
+    """ Usat nomes en el login form """
+    querystring = '?came_from=%s' % request.came_from
+    portalurl = getToolByName(context, 'portal_url').getPortalObject().absolute_url()
+    service_URL =('%s/logged_in%s' % (portalurl, querystring))
+    return '?service=%s' % service_URL
+
+def loginForm_URL(context, request):
+    """ Usat nomes en el login form """
+    portal = URL(getToolByName(context, 'portal_url').getPortalObject())
+    base = login_URL_base(context)
+    if base is None:
+        #loginform = getToolByName(context, 'portal_url').getPortalObject().absolute_url() + '/login_form'
+        loginform = 'login_form'
+        return loginform
+    return '%s%s' % (base, loginForm_query_string(context,request))
+
+def logout_URL_base(context):
+    acl_users = getToolByName(context, 'acl_users')
+    cas_auth_helpers = acl_users.objectValues(['CAS Auth Helper'])
+    if cas_auth_helpers:
+        return cas_auth_helpers[0].logout_url
+    else:
+        return None
+
+def logout_URL(context):
+    """ Enllac per fer logout """
+    portalurl = getToolByName(context, 'portal_url').getPortalObject().absolute_url()
+    base = logout_URL_base(context)
+    return '%s?url=%s' % (base, portalurl)
+
 def logout(context, request):
     mt = getToolByName(context, 'portal_membership')
     mt.logoutUser(REQUEST=request)
     IStatusMessage(request).addStatusMessage(_('heading_signed_out'), type='info')
-    portal = getToolByName(context, 'portal_url').getPortalObject().absolute_url()
-    return request.RESPONSE.redirect(portal)
+    return request.RESPONSE.redirect(logout_URL(context))
+
