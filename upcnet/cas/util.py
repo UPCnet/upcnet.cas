@@ -22,7 +22,7 @@ def login_query_string(context):
     if portal[-1:] == '/':
         portal = portal[:-1]
     service_URL =('%s/logged_in%s' % (portal, querystring))
-    return '?service=%s' % quote(service_URL, '')
+    return '?service=%s&idApp=genweb' % quote(service_URL, '')
 
 def login_URL(context, request):
     base = login_URL_base(context)
@@ -35,10 +35,10 @@ def login_URL(context, request):
 
 def loginForm_query_string(context,request):
     """ Usat nomes en el login form """
-    querystring = '?came_from=%s' % request.came_from
+    querystring = '?came_from=%s' % getattr(request, 'came_from','')
     portalurl = getToolByName(context, 'portal_url').getPortalObject().absolute_url()
     service_URL =('%s/logged_in%s' % (portalurl, querystring))
-    return '?service=%s' % service_URL
+    return '?service=%s&idApp=genweb' % service_URL
 
 def loginForm_URL(context, request):
     """ Usat nomes en el login form """
