@@ -26,6 +26,14 @@ def portal2HTTPS(context, request):
                 portalurl = portalurl.replace('http','https')
         return portalurl
 
+def camefrom2HTTPS(camefrom):
+        current_page_split = camefrom.split(":")
+        if len(current_page_split)>0:
+            if current_page_split[0]=='http':
+                camefrom = camefrom.replace('http','https')
+        return camefrom
+
+
 def login_URL_base(context):
     acl_users = getToolByName(context, 'acl_users')
     cas_auth_helpers = acl_users.objectValues(['CAS Auth Helper'])
@@ -56,7 +64,9 @@ def login_URL(context, request):
 
 def loginForm_query_string(context,request):
     """ Usat nomes en el login form """
-    querystring = '?came_from=%s' % getattr(request, 'came_from','')
+    camefrom = getattr(request, 'came_from','')
+    camefrom = camefrom2HTTPS(camefrom)
+    querystring = '?came_from=%s' % camefrom
     #portalurl = getToolByName(context, 'portal_url').getPortalObject().absolute_url()
     portalurl = portal2HTTPS(context, request)
     service_URL =('%s/logged_in%s' % (portalurl, querystring))
