@@ -24,7 +24,7 @@ setup(name='upcnet.cas',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'Products.CAS4PAS',
+          'collective.cas4plone',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
