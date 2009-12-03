@@ -1,7 +1,7 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import _createObjectByType
 
-from Products.CAS4PAS.CASAuthHelper import addCASAuthHelper 
+from collective.cas4plone.CASAuthHelper import addCASAuthHelper 
 
 from plone.app.controlpanel.site import ISiteSchema
 

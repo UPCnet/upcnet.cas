@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.1'
 
 setup(name='upcnet.cas',
       version=version,
@@ -25,7 +25,6 @@ setup(name='upcnet.cas',
       install_requires=[
           'setuptools',
           'collective.cas4plone',
-          'Products.CAS4PAS',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
