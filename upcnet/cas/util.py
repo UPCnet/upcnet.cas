@@ -4,9 +4,31 @@ from urllib import quote
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFPlone import PloneMessageFactory as _
 from zope.component import getMultiAdapter
+from Products.CMFCore.utils import getToolByName
+from plone.memoize.instance import memoize
 
 def URL(context):
     return context.restrictedTraverse('@@plone').getCurrentUrl()
+
+def getGWConfig(context):
+    """ Funcio que retorna les configuracions del controlpanel
+    """
+    ptool = getToolByName(context, 'portal_properties')    
+    try:
+        gwconfig = ptool.genwebupc_properties
+    except:
+        gwconfig = None
+    
+    return gwconfig    
+
+@memoize
+def getAppName(context):
+    try:
+        gwconfig = getGWConfig(context)
+        appName = gwconfig.CASAuthAppName
+        return appName
+    except:
+        return 'genweb'
 
 def current2HTTPS(context, request):
         context_state = getMultiAdapter((context, request), name=u'plone_context_state')
@@ -50,8 +72,9 @@ def login_query_string(context, request):
     #portal = URL(getToolByName(context, 'portal_url').getPortalObject())
     if portalurl[-1:] == '/':
         portalurl = portalurl[:-1]
+    appName = getAppName(context)
     service_URL =('%s/logged_in%s' % (portalurl, querystring))
-    return '?service=%s&idApp=genweb' % service_URL
+    return '?service=%s&idApp=%s' % (service_URL, appName)
 
 def login_URL(context, request):
     base = login_URL_base(context)
@@ -70,7 +93,8 @@ def loginForm_query_string(context,request):
     #portalurl = getToolByName(context, 'portal_url').getPortalObject().absolute_url()
     portalurl = portal2HTTPS(context, request)
     service_URL =('%s/logged_in%s' % (portalurl, querystring))
-    return '?service=%s&idApp=genweb' % service_URL
+    appName = getAppName(context)
+    return '?service=%s&idApp=%s' % (service_URL, appName)
 
 def loginForm_URL(context, request):
     """ Usat nomes en el login form """
