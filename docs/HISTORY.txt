@@ -1,12 +1,11 @@
 Changelog
 =========
 
-1.0
--------------------
+1.2
+---
 
-- Initial release
-- Targeted to Genweb 3.2
-- Uses Products.CAS4PAS
+- Targeted both Genweb 3.2 and Intranet UPCnet 3.3
+- Require a reinstall to work with Genweb 3.2 and Intranet UPCnet
 
 1.1
 ---
@@ -15,8 +14,9 @@ Changelog
 - Uses collective.cas4pas
 - Requires a reinstall to work with Genweb 3.2
 
-1.2
----
+1.0
+-------------------
 
-- Targeted both Genweb 3.2 and Intranet UPCnet 3.3
-- Require a reinstall to work with Genweb 3.2 and Intranet UPCnet
+- Initial release
+- Targeted to Genweb 3.2
+- Uses Products.CAS4PAS
