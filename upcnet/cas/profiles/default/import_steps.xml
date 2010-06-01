@@ -5,7 +5,6 @@
                handler="upcnet.cas.setuphandlers.setupVarious"
                title="UPCnet CAS UI: miscellaneous import steps">
     <dependency step="skins" />
-    Various import steps that are not handled by GS import/export
-    handlers.
+    Various import steps that are not handled by GS import/export handlers.
   </import-step>
 </import-steps>

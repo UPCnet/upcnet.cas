@@ -5,4 +5,5 @@
     <property name="title">Configuracio del Genweb</property>
     <property name="CASAuthAppName" type="string" purge="False">genweb</property>
   </object>
+  
 </object>

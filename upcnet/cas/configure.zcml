@@ -19,27 +19,19 @@
         class=".browser.LoginUrl"
         permission="zope2.Public"
         />
+        
     <browser:page
         for="*"
         name="cas_loginform_url"
         class=".browser.LoginFormUrl"
         permission="zope2.Public"
         />
+        
     <browser:page
         for="*"
         name="cas_logout"
         class=".browser.Logout"
         permission="zope2.Public"
         />
-<!-- 
-    <plone:portlet
-        name="collective.castle.Portlet"
-        interface=".portlet.IPortlet"
-        assignment=".portlet.Assignment"
-        view_permission="zope2.View"
-        edit_permission="cmf.ManagePortal"
-        renderer=".portlet.Renderer"
-        addview=".portlet.AddForm"
-        />
--->   
+ 
 </configure>

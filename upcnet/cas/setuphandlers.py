@@ -26,7 +26,6 @@ def setupVarious(context):
             portal.acl_users.CASUPC.logout_url='https://cas.upc.edu/logout'
             portal.acl_users.CASUPC.validate_url='https://cas.upc.edu/validate'
             plugin = portal.acl_users['CASUPC']
-
             plugin.manage_activateInterfaces(['IAuthenticationPlugin','IChallengePlugin','IExtractionPlugin'])
 
     except: 
