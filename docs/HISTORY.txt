@@ -11,7 +11,7 @@ Changelog
 ---
 
 - Targeted to Intranet UPCnet 3.3
-- Uses collective.cas4pas
+- Uses collective.cas4plone
 - Requires a reinstall to work with Genweb 3.2
 
 1.0
