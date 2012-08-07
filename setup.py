@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.2'
+version = '1.3'
 
 setup(name='upcnet.cas',
       version=version,
@@ -13,10 +13,10 @@ setup(name='upcnet.cas',
         "Framework :: Plone",
         "Programming Language :: Python",
         ],
-      keywords='',
+      keywords='cas plone zope upcnet genweb',
       author='UPCnet Plone Team',
       author_email='plone.team@upcnet.es',
-      url='https://devel.upcnet.es/svn/genwebupc/trunk/upcnet.cas',
+      url='https://github.com/UPCnet/upcnet.cas.git',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['upcnet'],
@@ -24,12 +24,10 @@ setup(name='upcnet.cas',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'collective.cas4plone',
-          # -*- Extra requirements: -*-
+          'anz.casclient'
       ],
       entry_points="""
       # -*- Entry points: -*-
-
       [z3c.autoinclude.plugin]
       target = plone
       """,

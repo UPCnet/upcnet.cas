@@ -5,33 +5,49 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="upcnet.cas">
 
-  <genericsetup:registerProfile
-      name="default"
-      title="UPCnet CAS UI"
-      directory="profiles/default"
-      description="Extension profile for upcnet.cas"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
-      
+    <include package="anz.casclient" />
+
     <browser:page
         for="*"
         name="cas_login_url"
         class=".browser.LoginUrl"
         permission="zope2.Public"
         />
-        
+
     <browser:page
         for="*"
         name="cas_loginform_url"
         class=".browser.LoginFormUrl"
         permission="zope2.Public"
         />
-        
+
     <browser:page
         for="*"
         name="cas_logout"
         class=".browser.Logout"
         permission="zope2.Public"
         />
- 
+
+    <browser:page
+        for="*"
+        name="caslogin"
+        class=".browser.caslogin"
+        permission="zope2.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="caslogout"
+        class=".browser.caslogout"
+        permission="zope2.Public"
+        />
+
+    <genericsetup:registerProfile
+      name="default"
+      title="UPCnet CAS UI"
+      directory="profiles/default"
+      description="Extension profile for upcnet.cas"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
 </configure>
