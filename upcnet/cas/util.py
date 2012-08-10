@@ -13,8 +13,8 @@ def login_URL(context, request):
     # We suppose that a configured plugin is in place and its called CASUPC
     portal = getToolByName(context, "portal_url").getPortalObject()
     plugin = portal.acl_users.CASUPC
-
-    url = plugin.getLoginURL() + '?service=' + plugin.getService().replace('/cas_login_url%3F', '')
+    # import ipdb;ipdb.set_trace()
+    url = plugin.getLoginURL() + '?service=' + plugin.getService()
     if plugin.renew:
         url += '&renew=true'
     if plugin.gateway:
