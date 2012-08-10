@@ -21,7 +21,7 @@ def setupVarious(context):
     try:
         manage_addAnzCASClient(portal.acl_users, "CASUPC", title="CASUPC")
         portal.acl_users.CASUPC.casServerUrlPrefix = 'https://cas.upc.edu'
-        portal.acl_users.CASUPC.gateway = True
+        # portal.acl_users.CASUPC.gateway = True
         portal.acl_users.CASUPC.ticketValidationSpecification = 'CAS 2.0'
         plugin = portal.acl_users['CASUPC']
         plugin.manage_activateInterfaces(['IAuthenticationPlugin', 'IChallengePlugin', 'IExtractionPlugin'])

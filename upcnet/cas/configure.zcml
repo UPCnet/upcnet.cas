@@ -28,20 +28,6 @@
         permission="zope2.Public"
         />
 
-    <browser:page
-        for="*"
-        name="caslogin"
-        class=".browser.caslogin"
-        permission="zope2.Public"
-        />
-
-    <browser:page
-        for="*"
-        name="caslogout"
-        class=".browser.caslogout"
-        permission="zope2.Public"
-        />
-
     <genericsetup:registerProfile
       name="default"
       title="UPCnet CAS UI"
