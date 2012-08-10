@@ -1,5 +1,6 @@
-from Products.CMFCore.utils import getToolByName
 from urllib import unquote
+from zope.component import getMultiAdapter
+from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFPlone import PloneMessageFactory as _
 
@@ -18,7 +19,12 @@ def login_URL(context, request):
     portal = getToolByName(context, "portal_url").getPortalObject()
     plugin = portal.acl_users.CASUPC
 
-    url = '%s%s%s' % (plugin.getLoginURL(), '?service=', secureURL(unquote(plugin.getService())))
+    current_url = getMultiAdapter((context, request), name=u'plone_context_state').current_page_url()
+
+    if current_url[-6:] == '/login' or current_url[-11:] == '/login_form':
+        url = loginForm_URL(context, request)
+    else:
+        url = '%s%s%s' % (plugin.getLoginURL(), '?service=', secureURL(unquote(plugin.getService())))
 
     if plugin.renew:
         url += '&renew=true'
@@ -44,13 +50,13 @@ def logout(context, request):
 def loginForm_URL(context, request):
     """ Special treatment of the login_form CAS URL, otherwise the return URL
         will be the login form once authenticated. """
-    camefrom = getattr(request, 'came_from', '')
-    if not camefrom:
-        camefrom = getToolByName(context, "portal_url").getPortalObject().absolute_url()
-
     # We suppose that a configured plugin is in place and its called CASUPC
     portal = getToolByName(context, "portal_url").getPortalObject()
     plugin = portal.acl_users.CASUPC
+
+    camefrom = getattr(request, 'came_from', '')
+    if not camefrom:
+        camefrom = portal.absolute_url()
 
     url = '%s%s%s%s%s%s' % (plugin.getLoginURL(), '?service=', secureURL(portal.absolute_url()), '/logged_in?', 'came_from=', secureURL(camefrom))
 
