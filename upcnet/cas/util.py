@@ -1,8 +1,14 @@
 from urllib import unquote
+from zope.component import queryUtility
 from zope.component import getMultiAdapter
+
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFPlone import PloneMessageFactory as _
+
+from plone.registry.interfaces import IRegistry
+
+from upcnet.cas.interface import ICASSettings
 
 
 def secureURL(url):
@@ -15,17 +21,20 @@ def secureURL(url):
 
 def login_URL(context, request):
     """ Refactored to use anz.casclient """
-    # We suppose that a configured plugin is in place and its called CASUPC
+    # We suppose that a configured plugin is in place and it's called CASUPC
     portal = getToolByName(context, "portal_url").getPortalObject()
     plugin = portal.acl_users.CASUPC
+    registry = queryUtility(IRegistry)
+    cas_settings = registry.forInterface(ICASSettings)
 
     current_url = getMultiAdapter((context, request), name=u'plone_context_state').current_page_url()
 
     if current_url[-6:] == '/login' or current_url[-11:] == '/login_form':
         url = loginForm_URL(context, request)
     else:
-        url = '%s%s%s' % (plugin.getLoginURL(), '?service=', secureURL(unquote(plugin.getService())))
+        url = '%s?idApp=%s&service=%s' % (plugin.getLoginURL(), cas_settings.cas_app_name, secureURL(unquote(plugin.getService())))
 
+    # Now not planned to be used. If it's used, then make them go before the (unquoted) service URL
     if plugin.renew:
         url += '&renew=true'
     if plugin.gateway:
@@ -53,13 +62,16 @@ def loginForm_URL(context, request):
     # We suppose that a configured plugin is in place and its called CASUPC
     portal = getToolByName(context, "portal_url").getPortalObject()
     plugin = portal.acl_users.CASUPC
+    registry = queryUtility(IRegistry)
+    cas_settings = registry.forInterface(ICASSettings)
 
     camefrom = getattr(request, 'came_from', '')
     if not camefrom:
         camefrom = portal.absolute_url()
 
-    url = '%s%s%s%s%s%s' % (plugin.getLoginURL(), '?service=', secureURL(portal.absolute_url()), '/logged_in?', 'came_from=', secureURL(camefrom))
+    url = '%s?came_from=%s&idApp=%s&service=%s/logged_in?' % (plugin.getLoginURL(), secureURL(camefrom), cas_settings.cas_app_name, secureURL(portal.absolute_url()))
 
+    # Now not planned to be used. If it's used, then make them go before the (unquoted) service URL
     if plugin.renew:
         url += '&renew=true'
     if plugin.gateway:
