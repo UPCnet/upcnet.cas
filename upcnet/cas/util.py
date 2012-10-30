@@ -23,24 +23,29 @@ def login_URL(context, request):
     """ Refactored to use anz.casclient """
     # We suppose that a configured plugin is in place and it's called CASUPC
     portal = getToolByName(context, "portal_url").getPortalObject()
-    plugin = portal.acl_users.CASUPC
-    registry = queryUtility(IRegistry)
-    cas_settings = registry.forInterface(ICASSettings)
+    plugin = getattr(portal.acl_users, 'CASUPC', None)
 
-    current_url = getMultiAdapter((context, request), name=u'plone_context_state').current_page_url()
+    if plugin:
+        registry = queryUtility(IRegistry)
+        cas_settings = registry.forInterface(ICASSettings)
 
-    if current_url[-6:] == '/login' or current_url[-11:] == '/login_form':
-        url = loginForm_URL(context, request)
+        current_url = getMultiAdapter((context, request), name=u'plone_context_state').current_page_url()
+
+        if current_url[-6:] == '/login' or current_url[-11:] == '/login_form':
+            url = loginForm_URL(context, request)
+        else:
+            url = '%s?idApp=%s&service=%s' % (plugin.getLoginURL(), cas_settings.cas_app_name, secureURL(unquote(plugin.getService())))
+
+        # Now not planned to be used. If it's used, then make them go before the (unquoted) service URL
+        if plugin.renew:
+            url += '&renew=true'
+        if plugin.gateway:
+            url += '&gateway=true'
+
+        return url
+
     else:
-        url = '%s?idApp=%s&service=%s' % (plugin.getLoginURL(), cas_settings.cas_app_name, secureURL(unquote(plugin.getService())))
-
-    # Now not planned to be used. If it's used, then make them go before the (unquoted) service URL
-    if plugin.renew:
-        url += '&renew=true'
-    if plugin.gateway:
-        url += '&gateway=true'
-
-    return url
+        return '%s/login_form' % portal.absolute_url()
 
 
 def logout(context, request):
@@ -61,20 +66,25 @@ def loginForm_URL(context, request):
         will be the login form once authenticated. """
     # We suppose that a configured plugin is in place and its called CASUPC
     portal = getToolByName(context, "portal_url").getPortalObject()
-    plugin = portal.acl_users.CASUPC
-    registry = queryUtility(IRegistry)
-    cas_settings = registry.forInterface(ICASSettings)
+    plugin = getattr(portal.acl_users, 'CASUPC', None)
 
-    camefrom = getattr(request, 'came_from', '')
-    if not camefrom:
-        camefrom = portal.absolute_url()
+    if plugin:
+        registry = queryUtility(IRegistry)
+        cas_settings = registry.forInterface(ICASSettings)
 
-    url = '%s?came_from=%s&idApp=%s&service=%s/logged_in?' % (plugin.getLoginURL(), secureURL(camefrom), cas_settings.cas_app_name, secureURL(portal.absolute_url()))
+        camefrom = getattr(request, 'came_from', '')
+        if not camefrom:
+            camefrom = portal.absolute_url()
 
-    # Now not planned to be used. If it's used, then make them go before the (unquoted) service URL
-    if plugin.renew:
-        url += '&renew=true'
-    if plugin.gateway:
-        url += '&gateway=true'
+        url = '%s?came_from=%s&idApp=%s&service=%s/logged_in?' % (plugin.getLoginURL(), secureURL(camefrom), cas_settings.cas_app_name, secureURL(portal.absolute_url()))
 
-    return url
+        # Now not planned to be used. If it's used, then make them go before the (unquoted) service URL
+        if plugin.renew:
+            url += '&renew=true'
+        if plugin.gateway:
+            url += '&gateway=true'
+
+        return url
+
+    else:
+        return '%s/login_form' % portal.absolute_url()
