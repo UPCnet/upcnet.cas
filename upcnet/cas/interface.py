@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from zope import schema
-from plone.supermodel import model
+from zope.interface import Interface
 
 try:
     from genweb.core import GenwebMessageFactory as _
@@ -8,7 +8,7 @@ except ImportError:
     from upcnet.cas import CASMessageFactory as _
 
 
-class ICASSettings(model.Schema):
+class ICASSettings(Interface):
     """ Global CAS settings. This describes records stored in the
     configuration registry and obtainable via plone.registry.
     """
