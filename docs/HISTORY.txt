@@ -1,16 +1,15 @@
 Changelog
 =========
 
-1.4 (unreleased)
+1.4 (2012-11-08)
 ----------------
 
  - Implemented using anz.casclient
  - Targeted for Plone 4 projects
- - Eliminates the use of the CASAuthAppName (AppId) in auth
 
 1.3 (unknown)
 -------------
- - ?
+ - Unknown
 
 1.2
 ---
