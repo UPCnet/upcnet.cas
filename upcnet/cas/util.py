@@ -31,7 +31,7 @@ def login_URL(context, request):
 
         current_url = getMultiAdapter((context, request), name=u'plone_context_state').current_page_url()
 
-        if current_url[-6:] == '/login' or current_url[-11:] == '/login_form':
+        if current_url[-6:] == '/login' or current_url[-11:] == '/login_form' or 'require_login' in current_url:
             url = loginForm_URL(context, request)
         else:
             url = '%s?idApp=%s&service=%s' % (plugin.getLoginURL(), cas_settings.cas_app_name, secureURL(unquote(plugin.getService())))
