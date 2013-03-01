@@ -76,7 +76,7 @@ def loginForm_URL(context, request):
         if not camefrom:
             camefrom = portal.absolute_url()
 
-        url = '%s?came_from=%s&idApp=%s&service=%s/logged_in?' % (plugin.getLoginURL(), secureURL(camefrom), cas_settings.cas_app_name, secureURL(portal.absolute_url()))
+        url = '%s?idApp=%s&service=%s/logged_in?came_from=%s' % (plugin.getLoginURL(), cas_settings.cas_app_name, secureURL(portal.absolute_url()), secureURL(camefrom))
 
         # Now not planned to be used. If it's used, then make them go before the (unquoted) service URL
         if plugin.renew:
