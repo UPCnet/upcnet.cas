@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.5 (2014-10-08)
+----------------
+
+ * Release GW4 initial version. [Victor Fernandez de Alba]
+ * refactor of login constructor [Victor Fernandez de Alba]
+ * popuplogin working too [Victor Fernandez de Alba]
+ * Refine loginURL [Victor Fernandez de Alba]
+ * fix require_login use case [Victor Fernandez de Alba]
+
 1.4 (2012-11-08)
 ----------------
 
