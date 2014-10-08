@@ -3,16 +3,17 @@ import os
 
 version = '1.4'
 
+README = open("README.rst").read()
+HISTORY = open(os.path.join("docs", "HISTORY.rst")).read()
+
 setup(name='upcnet.cas',
       version=version,
       description="",
-      long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      long_description=README + "\n" + HISTORY,
       classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "Programming Language :: Python",
+      ],
       keywords='cas plone zope upcnet genweb',
       author='UPCnet Plone Team',
       author_email='plone.team@upcnet.es',
