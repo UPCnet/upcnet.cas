@@ -36,4 +36,9 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+    <subscriber
+      for="anz.casclient.interfaces.ISAMLPropertiesExist"
+      handler=".events.setoAuthTokenFromCASSAMLProperties"
+    />
+
 </configure>
