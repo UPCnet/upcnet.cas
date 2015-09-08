@@ -1,11 +1,10 @@
 Changelog
 =========
 
-1.6 (unreleased)
+1.6 (2015-09-08)
 ----------------
 
-- Nothing changed yet.
-
+* Add subscriber for update the oauth_token from CAS/SAML auth. [Victor Fernandez de Alba]
 
 1.5 (2014-10-08)
 ----------------
