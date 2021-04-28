@@ -1,11 +1,10 @@
 Changelog
 =========
 
-1.7 (unreleased)
+1.7 (2021-04-28)
 ----------------
 
-- Nothing changed yet.
-
+* Cambiar CAS por SSO [Iago López Fernández]
 
 1.6 (2015-09-08)
 ----------------
